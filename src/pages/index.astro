@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card/index.astro";
 import AboutMe from "../components/AboutMe.astro";
 import Intro from "../components/Intro.astro";
 import Contact from "../components/Contact.astro"; 
@@ -15,7 +14,71 @@ import Pulse from "../components/Pulse/index.astro";
 	title="Pau Sansa - Fullstack Developer"
 	description="Software developer with an insatiable curiosity for crafting digital wonders."
 >
-<main class="text-white m-auto p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 sm:gap-2 md:gap-3 md:p-6 lg:h-screen lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]">
+<div class="loaderRef bg-darkslate-700 text-neutral-50 text-3xl font-black uppercase flex justify-center items-center w-screen h-screen z-50 fixed top-0 bottom-0 right-0 left-0">
+</div>
+<script>
+	import { stagger, spring, timeline} from "motion";
+	const cards = document.querySelectorAll(".card");
+  
+
+	const sequence = [
+	  [
+		".loaderRef",
+		{ opacity: 0, pointerEvents: "none" },
+		{ easing: "ease-out" },
+	  ],
+	  [
+		cards,
+		{ y: ["40%", "0%"], opacity: [0, 1] },
+		{
+		  at: "-0.1",
+		  duration: 0.4,
+		  delay: stagger(0.3),
+		  easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
+		},
+	  ],
+	];
+  
+	timeline(sequence);
+	
+	const fastSequenceAnimate = () => {
+	   const pathname = window.location.pathname
+	   if (pathname == "/projects") {
+		  return
+	   }
+	  const cards = document.querySelectorAll(".card");
+
+	  const fastSequence = [
+		[
+		  ".loaderRef",
+		  { opacity: 0, pointerEvents: "none" },
+		  { easing: "ease-out" },
+		],
+		[
+		  cards,
+		  { y: ["40%", "0%"], opacity: [0, 1] },
+		  {
+			at: "-0.1",
+			duration: 0.1,
+			delay: stagger(0.1),
+			easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
+		  },
+		],
+	  ];
+	  timeline(fastSequence)
+	}
+
+	
+
+	
+
+	document.addEventListener("astro:after-swap", fastSequenceAnimate)
+
+  </script>
+<main 
+class="text-white m-auto p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 sm:gap-2 md:gap-3 md:p-6 lg:h-screen lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]"
+style="font-feature-settings: normal; font-variation-settings: normal;" 
+>
 	<Intro />
 	<AboutMe />
 	<Contact />

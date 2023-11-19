@@ -1,0 +1,19 @@
+---
+import Card from '../components/Card/index.astro'
+import ProjectCard from './ProjectCard.astro';
+
+const project = {
+    title: 'Project Title',
+    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+    image: 'https://picsum.photos/300/150',
+    url: 'https://google.com',
+    tags: ['React', 'Javascript', 'CSS', 'HTML']
+}
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-start content-start w-full h-full p-10">
+    <ProjectCard project={project}/>
+    <ProjectCard project={project}/>
+    <ProjectCard project={project}/>
+    <ProjectCard project={project}/>
+</div>
