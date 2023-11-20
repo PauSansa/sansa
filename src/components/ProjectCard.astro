@@ -10,6 +10,6 @@ const {project} = Astro.props
             {project.tags.map(tech => <Tag tag={tech}/>)}
         </div>
         <p>{project.description}</p>
-        <img class="w-15 rounded-sm" src={project.image} alt={project.title} />
+        <img class="w-15 rounded-sm w-l h-m" src={project.image} alt={project.title} />
     </div>
 </Card>
