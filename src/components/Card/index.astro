@@ -29,23 +29,19 @@ function getGrid() {
 
 const { title, body, colSpan, rowSpan, href, noTrans, noGrid, extraCss } = Astro.props;
 ---
-
-<div class={`card text-white group overflow-hidden bg-darkslate-500 shadow-lg rounded-lg p-6 border border-darkslate-100 hover:border-primary-500 align-start flex-none h-full justify-start relative transform perspective-1200 w-full col-span-1 ${getGrid()} ${extraCss}`}>
-  {
-    href ? (
-      <a href={href} class="h-full w-full ddd">
-        <Icon
-          name="ri:arrow-right-up-line"
-          class="h-6 float-right group-hover:text-primary-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform ease-in-out duration-100"
-        />
-        <Content title={title} body={body}>
-          <slot />
-        </Content>
-      </a>
-    ) : (
+{href ? 
+  <a href={href} class="hover:border-primary-500">
+    <div class={`card href text-white group overflow-hidden bg-darkslate-500 shadow-lg rounded-lg p-6 border border-darkslate-100 hover:border-primary-500 align-start flex-none h-full justify-start relative transform perspective-1200 w-full col-span-1 ${getGrid()} ${extraCss ? extraCss : ''}`}>
       <Content title={title} body={body}>
         <slot />
       </Content>
-    )
-  }
-</div>
+    </div>
+  </a>
+: 
+  <div class={`card text-white group overflow-hidden bg-darkslate-500 shadow-lg rounded-lg p-6 border border-darkslate-100 hover:border-primary-500 align-start flex-none h-full justify-start relative transform perspective-1200 w-full col-span-1 ${getGrid()} ${extraCss ? extraCss : ''} ${href ? 'href' : ''}`}>
+      <Content title={title} body={body}>
+        <slot />
+      </Content>
+    </div>
+}
+

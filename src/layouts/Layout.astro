@@ -47,8 +47,10 @@ const { title, description } = Astro.props;
     <div class="loaderRef bg-darkslate-700 text-neutral-50 text-3xl font-black uppercase flex justify-center items-center w-screen h-screen z-50 fixed top-0 bottom-0 right-0 left-0">
     </div>
     <script>
+      // @ts-nocheck
       import { stagger, spring, timeline} from "motion";
       const cards = document.querySelectorAll(".card");
+      const href = document.querySelectorAll(".href");
       
     
       const sequence = [
@@ -67,31 +69,85 @@ const { title, description } = Astro.props;
           easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
         },
         ],
+        [
+            href,
+            { borderColor: ["rgb(44,44,44)", "rgba(255,0,0,0.5)"] }, 
+            {
+              duration: 0.2, // Ajusta este valor según sea necesario
+              delay: 0.1, // Ajusta este valor según sea necesario
+              easing: "ease-out",
+            },
+        ],
+        [
+            href,
+            { borderColor: ["rgba(255,0,0,0.5)", "#2c2c2c"] }, 
+            {
+              duration: 0.2, // Ajusta este valor según sea necesario
+              delay: 0.3, // Ajusta este valor según sea necesario
+              easing: "ease-out",
+            },
+        ],
       ];
       
-      timeline(sequence);
+      timeline(sequence).finished.then(() => {
+          href.forEach((element) => {
+            console.log(element)
+            element.addEventListener('mouseenter', function(){
+              this.style.borderColor = "#7D21A8";
+            })
+            element.addEventListener('mouseleave', function(){
+              this.style.borderColor = "#2c2c2c";
+            })
+          });
+        });;
       
       const fastSequenceAnimate = () => {
         const cards = document.querySelectorAll(".card");
+        const href = document.querySelectorAll(".href");
     
         const fastSequence = [
-        [
-          ".loaderRef",
-          { opacity: 0, pointerEvents: "none" },
-          { easing: "ease-out" },
+          [
+            ".loaderRef",
+            { opacity: 0, pointerEvents: "none" },
+            { easing: "ease-out" },
+          ],
+          [
+            cards,
+            { y: ["40%", "0%"], opacity: [0, 1] },
+            {
+              at: "-0.1",
+              duration: 0.1,
+              delay: stagger(0.1),
+              easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
+            },
+          ],
+          [
+            href,
+            { borderColor: ["rgb(44,44,44)", "rgba(255,0,0,0.5)"] }, 
+            {
+              duration: 0.2, // Ajusta este valor según sea necesario
+              delay: 0.1, // Ajusta este valor según sea necesario
+              easing: "ease-out",
+              fill: "backwards"
+            },
         ],
         [
-          cards,
-          { y: ["40%", "0%"], opacity: [0, 1] },
-          {
-          at: "-0.1",
-          duration: 0.1,
-          delay: stagger(0.1),
-          easing: spring({ velocity: 100, stiffness: 50, damping: 10 }),
-          },
+            href,
+            { borderColor: ["rgba(255,0,0,0.5)", "#2c2c2c"] }, 
+            {
+              duration: 0.2, // Ajusta este valor según sea necesario
+              delay: 0.3, // Ajusta este valor según sea necesario
+              easing: "ease-out",
+            },
         ],
         ];
-        timeline(fastSequence);
+        timeline(fastSequence).onFinish(() => {
+          href.forEach((element) => {
+            element.addEventListener('mouseenter', function(){
+              this.style.borderColor = "#7D21A8";
+            })
+          });
+        });
       }
     
       

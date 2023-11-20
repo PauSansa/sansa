@@ -3,15 +3,13 @@ import Card from '../components/Card/index.astro'
 import Tag from '../components/Tag.astro'
 const {project} = Astro.props
 ---
-<a href={project.url}>
-    <Card colSpan='md:colspan-1' rowSpan='md:rowspan-1'>
-        <div class="justify-start flex flex-col gap-3">
-            <h2>{project.title}</h2>
-            <div class="flex flex-row flex-wrap gap-3">
-                {project.tags.map(tech => <Tag tag={tech}/>)}
-            </div>
-            <p>{project.description}</p>
-            <img class="w-15 rounded-sm" src={project.image} alt={project.title} />
+<Card href={project.url} colSpan='md:colspan-1' rowSpan='md:rowspan-1'>
+    <div class="justify-start flex flex-col gap-3">
+        <h2>{project.title}</h2>
+        <div class="flex flex-row flex-wrap gap-3">
+            {project.tags.map(tech => <Tag tag={tech}/>)}
         </div>
-    </Card>
-</a>
+        <p>{project.description}</p>
+        <img class="w-15 rounded-sm" src={project.image} alt={project.title} />
+    </div>
+</Card>
