@@ -91,7 +91,6 @@ const { title, description } = Astro.props;
       
       timeline(sequence).finished.then(() => {
           href.forEach((element) => {
-            console.log(element)
             element.addEventListener('mouseenter', function(){
               this.style.borderColor = "#7D21A8";
             })
@@ -141,13 +140,16 @@ const { title, description } = Astro.props;
             },
         ],
         ];
-        timeline(fastSequence).onFinish(() => {
+        timeline(fastSequence).finished.then(() => {
           href.forEach((element) => {
             element.addEventListener('mouseenter', function(){
               this.style.borderColor = "#7D21A8";
             })
+            element.addEventListener('mouseleave', function(){
+              this.style.borderColor = "#2c2c2c";
+            })
           });
-        });
+        });;
       }
     
       
